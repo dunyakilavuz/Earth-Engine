@@ -17,9 +17,12 @@ import math.Vector4;
 public class Scene 
 {
 	public List<GameObject> gameObjectList = new ArrayList<GameObject>();
+	
 	GameObject mainCamera;
 	Shader shader;
 	GameObject origin;
+	
+	String projectPath = System.getProperty("user.dir");
 	
 	public Scene(int windowWidth, int windowHeight, GameObject mainCamera) 
 	{
@@ -30,8 +33,8 @@ public class Scene
 	void Awake() throws Exception
 	{
 		shader = new Shader();
-		shader.createVertexShader(Loader.ImportCode(".\\res\\shaders\\vertex.vs"));
-		shader.createFragmentShader(Loader.ImportCode(".\\res\\shaders\\fragment.fs"));
+		shader.createVertexShader(Loader.ImportCode(projectPath + "/res/shaders/vertex.vs"));
+		shader.createFragmentShader(Loader.ImportCode(projectPath + "/res/shaders/fragment.fs"));
 		shader.Link();
 		shader.createUniform("projectionMatrix");
 		shader.createUniform("modelViewMatrix");

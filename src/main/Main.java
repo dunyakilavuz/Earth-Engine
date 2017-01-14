@@ -26,11 +26,13 @@ public class Main
 		Scene scene = new Scene(windowWidth,windowHeight,mainCamera);
 		Engine engine = new Engine(windowWidth,windowHeight,title,scene);
 		
-		Mesh earthMesh = Loader.ImportOBJ(".\\res\\model\\mesh\\Earth.obj");
-		Mesh moonMesh = Loader.ImportOBJ(".\\res\\model\\mesh\\Moon.obj");
+		String projectPath = System.getProperty("user.dir");
 		
-		Material moonMaterial = new Material(new Texture(".\\res\\model\\texture\\moonTexture.png"));
-		Material earthMaterial = new Material(new Texture(".\\res\\model\\texture\\earthTexture.png"));
+		Mesh earthMesh = Loader.ImportOBJ(projectPath + "/res/model/mesh/Earth.obj");
+		Mesh moonMesh = Loader.ImportOBJ(projectPath + "/res/model/mesh/Moon.obj");
+		
+		Material moonMaterial = new Material(new Texture(projectPath + "/res/model/texture/moonTexture.png"));
+		Material earthMaterial = new Material(new Texture(projectPath + "/res/model/texture/earthTexture.png"));
 		
 		GameObject earth = new GameObject();
 		earth.name = "Earth";
