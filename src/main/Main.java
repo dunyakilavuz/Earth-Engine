@@ -11,6 +11,8 @@ import engine.Time;
 import graphics.Material;
 import graphics.Mesh;
 import graphics.Texture;
+import math.Quaternion;
+import math.Vector3;
 
 public class Main
 {	
@@ -39,6 +41,7 @@ public class Main
 		GameObject moon = new GameObject();
 		moon.name = "Moon";
 		
+		
 		earth.AddComponent(new MeshRenderer(earthMesh));
 		earth.GetComponent(MeshRenderer.class).material = earthMaterial;
 		
@@ -46,12 +49,11 @@ public class Main
 		moon.GetComponent(MeshRenderer.class).material = moonMaterial;
 		
 		moon.AddComponent(new Rigidbody(moon));
-		
-		earth.AddComponent(new Orbit(earth));
-		moon.AddComponent(new Orbit(moon));
-		
+		earth.AddComponent(new Rigidbody(earth));
+	
 		scene.gameObjectList.add(earth);
 		scene.gameObjectList.add(moon);
+		
 		engine.StartEngine();
 	}
 }

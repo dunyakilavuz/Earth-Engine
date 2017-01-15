@@ -63,6 +63,7 @@ public class Camera extends Component
 			Update();
 
 			mousePreviousPosition = Input.Mouse.MousePosition();
+			
 		}
 
 		if(Input.Mouse.MouseButtonDown(GLFW.GLFW_MOUSE_BUTTON_2) && Input.Keyboard.KeyDown(GLFW.GLFW_KEY_W))

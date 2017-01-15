@@ -78,6 +78,7 @@ public class Engine
 		Time.Update();
 		activeScene.Update();	
 		FPSCounter();
+	//	MouseTeleporting();
 	}
 	
 	void FPSCounter()
@@ -90,6 +91,30 @@ public class Engine
 	         framesPast = 0;
 	         fpsLastTime += 1.0;
 	     }
+	}
+	
+	void MouseTeleporting()
+	{
+		if(Input.Mouse.MouseButtonDown(GLFW.GLFW_MOUSE_BUTTON_2) == true)
+		{
+			if(Input.Mouse.MousePosition().x >= windowWidth)
+			{
+				GLFW.glfwSetCursorPos(window, 0.01f, Input.Mouse.MousePosition().y);
+			}
+			else if(Input.Mouse.MousePosition().x <= 0)
+			{
+				GLFW.glfwSetCursorPos(window, windowWidth, Input.Mouse.MousePosition().y);
+			}
+			
+			if(Input.Mouse.MousePosition().y >= windowHeight)
+			{
+				GLFW.glfwSetCursorPos(window, Input.Mouse.MousePosition().x,0.01f);
+			}
+			else 	if(Input.Mouse.MousePosition().y <= 0)
+			{
+				GLFW.glfwSetCursorPos(window, Input.Mouse.MousePosition().x,windowHeight);
+			}
+		}
 	}
 	
 	public void StartEngine() throws Exception
