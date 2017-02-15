@@ -106,11 +106,11 @@ public class Engine
 				GLFW.glfwSetCursorPos(window, windowWidth, Input.Mouse.MousePosition().y);
 			}
 			
-			if(Input.Mouse.MousePosition().y >= windowHeight)
+			else if(Input.Mouse.MousePosition().y >= windowHeight)
 			{
 				GLFW.glfwSetCursorPos(window, Input.Mouse.MousePosition().x,0.01f);
 			}
-			else 	if(Input.Mouse.MousePosition().y <= 0)
+			else if(Input.Mouse.MousePosition().y <= 0)
 			{
 				GLFW.glfwSetCursorPos(window, Input.Mouse.MousePosition().x,windowHeight);
 			}

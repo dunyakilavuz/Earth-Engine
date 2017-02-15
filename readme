@@ -33,16 +33,27 @@ public class Main
 		String projectPath = System.getProperty("user.dir");
 		
 		Mesh earthMesh = Loader.ImportOBJ(projectPath + "/res/model/mesh/Earth.obj");
+		Mesh moonMesh = Loader.ImportOBJ(projectPath + "/res/model/mesh/Moon.obj");
 		
+		Material moonMaterial = new Material(new Texture(projectPath + "/res/model/texture/moonTexture.png"));
 		Material earthMaterial = new Material(new Texture(projectPath + "/res/model/texture/earthTexture.png"));
 		
 		GameObject earth = new GameObject();
 		earth.name = "Earth";
+		GameObject moon = new GameObject();
+		moon.name = "Moon";
 		
 		earth.AddComponent(new MeshRenderer(earthMesh));
 		earth.GetComponent(MeshRenderer.class).material = earthMaterial;
-
+		
+		moon.AddComponent(new MeshRenderer(moonMesh));
+		moon.GetComponent(MeshRenderer.class).material = moonMaterial;
+		
+		moon.AddComponent(new Rigidbody(moon));
+		earth.AddComponent(new Rigidbody(earth));
+	
 		scene.gameObjectList.add(earth);
+		scene.gameObjectList.add(moon);
 		
 		engine.StartEngine();
 	}

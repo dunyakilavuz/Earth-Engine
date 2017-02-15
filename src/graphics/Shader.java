@@ -71,7 +71,7 @@ public class Shader
         int shaderId = GL20.glCreateShader(shaderType);
         if (shaderId == 0)
         {
-            throw new Exception("Error creating shader. Code: " + shaderId);
+            throw new Exception("Error creating shader code: " + shaderId);
         }
 
         GL20.glShaderSource(shaderId, shaderCode);
@@ -79,7 +79,7 @@ public class Shader
 
         if (GL20.glGetShaderi(shaderId, GL20.GL_COMPILE_STATUS) == 0) 
         {
-            throw new Exception("Error compiling Shader code: " + GL20.glGetShaderInfoLog(shaderId, 1024));
+            throw new Exception("Error compiling shader code: " + GL20.glGetShaderInfoLog(shaderId, 1024));
         }
 
         GL20.glAttachShader(programId, shaderId);
@@ -100,7 +100,6 @@ public class Shader
         {
             System.err.println("Warning validating Shader code: " + GL20.glGetProgramInfoLog(programId, 1024));
         }
-
     }
 
     public void Bind() 

@@ -9,6 +9,7 @@ import org.lwjgl.opengl.GL13;
 import components.Camera;
 import components.GameObject;
 import components.MeshRenderer;
+import graphics.Color;
 import graphics.Shader;
 import math.Matrix4x4;
 import math.Vector3;
@@ -91,7 +92,7 @@ public class Scene
 		shader.setUniform("modelViewMatrix", Matrix4x4.multiplicationMatrix4x4(Matrix4x4.Inverse(mainCamera.GetComponent(Camera.class).viewMatrix), origin.transform.worldMatrix));
 		if(gameObjectList.isEmpty())
 		{
-			shader.setUniform("colour", new Vector4(1,1,1,1));
+			shader.setUniform("colour", Color.grey.getColorVector());
 			shader.setUniform("useColour", 1);
 		}
 		mainCamera.GetComponent(Camera.class).controlCamera();			

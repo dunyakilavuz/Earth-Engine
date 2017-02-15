@@ -31,6 +31,8 @@ public class Mesh
 	float[] normalPositions;
 	int[] vertexIndices;
 	
+	public boolean isTerrain = false;
+	
 	public Mesh(float[] positions, float[] textCoords, float[] normals, int[] indices) throws Exception
 	{		
 		vertexPositions = positions;
@@ -85,8 +87,16 @@ public class Mesh
 		GL20.glEnableVertexAttribArray(1);		
 		GL20.glEnableVertexAttribArray(2);
 		
-		GL11.glDrawArrays(GL11.GL_TRIANGLES, 0, 0);
-		GL11.glDrawElements(GL11.GL_TRIANGLES, vertexCount, GL11.GL_UNSIGNED_INT, 0);
+		if(!isTerrain)
+		{
+			GL11.glDrawArrays(GL11.GL_TRIANGLES, 0, 0);
+			GL11.glDrawElements(GL11.GL_TRIANGLES, vertexCount, GL11.GL_UNSIGNED_INT, 0);			
+		}
+		else
+		{
+			GL11.glDrawArrays(GL11.GL_TRIANGLE_STRIP, 0, 0);
+			GL11.glDrawElements(GL11.GL_TRIANGLE_STRIP, vertexCount, GL11.GL_UNSIGNED_INT, 0);
+		}
 		
 		GL20.glDisableVertexAttribArray(0);
 		GL20.glDisableVertexAttribArray(1);
