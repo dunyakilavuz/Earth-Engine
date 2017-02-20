@@ -3,6 +3,7 @@ package components;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL11;
 
+import engine.EngineReferences;
 import engine.Time;
 import input.Input;
 import math.Matrix4x4;
@@ -21,13 +22,13 @@ public class Camera extends Component
 	/*Camera Attributes End*/
 	
 	private Vector3 mousePreviousPosition = new Vector3(0, 0, 0);
-	private float sensitivity = 5f;
+	private float sensitivity = 10f;
 	private float moveSpeed = 0.1f;
 	
-	public Camera(int windowWidth, int windowHeight, GameObject parent)
+	public Camera(GameObject parent)
 	{
 		gameObject = parent;
-		aspectRatio = (float)windowWidth / (float)windowHeight;
+		aspectRatio = (float)EngineReferences.WindowWidth / (float)EngineReferences.WindowHeight;
 		fieldOfview = (float) Math.toRadians(60.0f);
 		farClipPlane = 1000f;
 		nearClipPlane = 0.1f;

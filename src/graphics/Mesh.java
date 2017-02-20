@@ -33,12 +33,12 @@ public class Mesh
 	
 	public boolean isTerrain = false;
 	
-	public Mesh(float[] positions, float[] textCoords, float[] normals, int[] indices) throws Exception
+	public Mesh(MeshData meshData) throws Exception
 	{		
-		vertexPositions = positions;
-		textureCoords = textCoords;
-		normalPositions = normals;
-		vertexIndices = indices;
+		vertexPositions = meshData.getVertices();
+		textureCoords = meshData.getTextures();
+		normalPositions = meshData.getNormals();
+		vertexIndices = meshData.getIndices();
 		
 		vertexCount = vertexPositions.length * 3;
 		verticesPositionVboID = GL15.glGenBuffers();

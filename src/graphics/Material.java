@@ -1,27 +1,24 @@
 package graphics;
 
-import math.Vector3;
-import math.Vector4;
-
 public class Material
 {
-	public Vector4 color;
+	public Color color;
 	public Texture texture;
 	
-	public Material(Vector4 color) 
+	public Material(Color color) 
 	{
 		this.color = color;
 	}
 	
 	public Material(Texture texture)
 	{
-		this.color = new Vector4(1, 1, 1, 1);
+		this.color = Color.white;
 		this.texture = texture;
 	}
 	
 	public Material()
 	{
-		this.color = new Vector4(1, 1, 1, 1);
+		this.color = Color.white;
 	}
 	
 	public void setTexture(Texture texture)

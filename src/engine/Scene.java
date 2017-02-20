@@ -19,16 +19,15 @@ public class Scene
 {
 	public List<GameObject> gameObjectList = new ArrayList<GameObject>();
 	
-	GameObject mainCamera;
+	GameObject mainCamera = EngineReferences.mainCamera;
 	Shader shader;
 	GameObject origin;
 	
 	String projectPath = System.getProperty("user.dir");
 	
-	public Scene(int windowWidth, int windowHeight, GameObject mainCamera) 
+	public Scene() 
 	{
 		origin = new GameObject();
-		this.mainCamera = mainCamera;
 	}
 	
 	void Awake() throws Exception
@@ -76,7 +75,7 @@ public class Scene
 			}		
 			
 			shader.setUniform("modelViewMatrix", Matrix4x4.multiplicationMatrix4x4(Matrix4x4.Inverse(mainCamera.GetComponent(Camera.class).viewMatrix), gameObjectList.get(i).transform.worldMatrix));
-			shader.setUniform("colour", gameObjectList.get(i).GetComponent(MeshRenderer.class).material.color);
+			shader.setUniform("colour", gameObjectList.get(i).GetComponent(MeshRenderer.class).material.color.getColorVector());
 			
 			if(gameObjectList.get(i).GetComponent(MeshRenderer.class).material.isTextured() == true)
 			{

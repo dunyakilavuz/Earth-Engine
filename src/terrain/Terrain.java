@@ -1,6 +1,8 @@
-package uncategorized;
+package terrain;
 
-public class Terrain
+import components.GameObject;
+
+public class Terrain extends GameObject
 {
 	int width;
 	int height;
@@ -11,7 +13,7 @@ public class Terrain
 	
 	public Terrain()
 	{
-
+		
 	}
 
 }
