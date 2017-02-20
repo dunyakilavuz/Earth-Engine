@@ -193,7 +193,7 @@ public class Loader
 		    }
 		    if (indices.idxVecNormal >= 0) 
 		    {
-		        // Reorder vectornormals
+		        // Reorder vector normals
 		        Vector3 vecNorm = normList.get(indices.idxVecNormal);
 		        normArr[posIndex * 3] = vecNorm.x;
 		        normArr[posIndex * 3 + 1] = vecNorm.y;
