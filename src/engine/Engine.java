@@ -52,7 +52,10 @@ public class Engine
 		GLFW.glfwSwapInterval(1);
 		GLFW.glfwShowWindow(window);
 		GL.createCapabilities();
-		GL11.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+		GL11.glClearColor(EngineReferences.clearColor.getColorVector().x
+				, EngineReferences.clearColor.getColorVector().y
+				, EngineReferences.clearColor.getColorVector().z
+				, EngineReferences.clearColor.getColorVector().w);
 		GL11.glEnable(GL11.GL_DEPTH_TEST);
 
 		

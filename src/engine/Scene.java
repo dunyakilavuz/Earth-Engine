@@ -23,7 +23,6 @@ public class Scene
 	Shader shader;
 	GameObject origin;
 	
-	String projectPath = System.getProperty("user.dir");
 	
 	public Scene() 
 	{
@@ -33,8 +32,8 @@ public class Scene
 	void Awake() throws Exception
 	{
 		shader = new Shader();
-		shader.createVertexShader(Loader.ImportCode(projectPath + "/res/shaders/vertex.vs"));
-		shader.createFragmentShader(Loader.ImportCode(projectPath + "/res/shaders/fragment.fs"));
+		shader.createVertexShader(Loader.ImportCode(EngineReferences.enginePath + "/res/shaders/vertex.vs"));
+		shader.createFragmentShader(Loader.ImportCode(EngineReferences.enginePath + "/res/shaders/fragment.fs"));
 		shader.Link();
 		shader.createUniform("projectionMatrix");
 		shader.createUniform("modelViewMatrix");
@@ -91,7 +90,7 @@ public class Scene
 		shader.setUniform("modelViewMatrix", Matrix4x4.multiplicationMatrix4x4(Matrix4x4.Inverse(mainCamera.GetComponent(Camera.class).viewMatrix), origin.transform.worldMatrix));
 		if(gameObjectList.isEmpty())
 		{
-			shader.setUniform("colour", Color.grey.getColorVector());
+			shader.setUniform("colour", Color.white.getColorVector());
 			shader.setUniform("useColour", 1);
 		}
 		mainCamera.GetComponent(Camera.class).controlCamera();			

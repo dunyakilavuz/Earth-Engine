@@ -22,8 +22,8 @@ public class Camera extends Component
 	/*Camera Attributes End*/
 	
 	private Vector3 mousePreviousPosition = new Vector3(0, 0, 0);
-	private float sensitivity = 10f;
-	private float moveSpeed = 0.1f;
+	private float sensitivity = EngineReferences.cameraSensitivity;
+	private float moveSpeed = EngineReferences.cameraMoveSpeed;
 	
 	public Camera(GameObject parent)
 	{

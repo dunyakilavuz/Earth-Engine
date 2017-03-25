@@ -21,5 +21,11 @@ public class Color
 	{
 		return colorVector;
 	}
+	
+	public static Color customColor(Vector4 colorVector)
+	{
+		return new Color(colorVector);
+		
+	}
 
 }

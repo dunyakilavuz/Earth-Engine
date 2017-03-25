@@ -1,6 +1,6 @@
 // main class should be like this
 
-package main;
+package test;
 
 import components.Camera;
 import components.GameObject;
@@ -18,7 +18,7 @@ import graphics.Texture;
 import math.Quaternion;
 import math.Vector3;
 
-public class Main
+public class Test
 {	
 	public static void main(String args[]) throws Exception
 	{
