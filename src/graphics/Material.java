@@ -2,28 +2,66 @@ package graphics;
 
 public class Material
 {
-	public Color color;
-	public Texture texture;
+	public Color ambientColor;
+	public Color diffuseColor;
+	public Color specularColor;
+	public float reflectance;	
+	private Texture texture;
 	
-	public Material(Color color) 
+	public Material()
 	{
-		this.color = color;
+		ambientColor = Color.white;
+		diffuseColor = Color.white;
+		specularColor = Color.white;
+		texture = null;
+		this.reflectance = 0;
+	}
+	
+	public Material(Color color, float reflectance) 
+	{
+		ambientColor = color;
+		diffuseColor = color;
+		specularColor = color;
+		texture = null;
+		this.reflectance = reflectance;
 	}
 	
 	public Material(Texture texture)
 	{
-		this.color = Color.white;
+		ambientColor = Color.white;
+		diffuseColor = Color.white;
+		specularColor = Color.white;
 		this.texture = texture;
+		this.reflectance = 0;
 	}
 	
-	public Material()
+	public Material(Texture texture, float reflectance)
 	{
-		this.color = Color.white;
+		ambientColor = Color.white;
+		diffuseColor = Color.white;
+		specularColor = Color.white;
+		this.texture = texture;
+		this.reflectance = reflectance;
 	}
+	
+	public Material(Texture texture, float reflectance,Color ambient, Color diffuse, Color specular)
+	{
+		ambientColor = ambient;
+		diffuseColor = diffuse;
+		specularColor = specular;
+		this.texture = texture;
+		this.reflectance = reflectance;
+	}
+	
 	
 	public void setTexture(Texture texture)
 	{
 		this.texture = texture;
+	}
+	
+	public Texture getTexture()
+	{
+		return texture;
 	}
 	
 	public boolean isTextured()

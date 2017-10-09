@@ -7,6 +7,8 @@ import java.util.Map;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL20;
 
+import components.Light;
+import components.Light.LightType;
 import math.Matrix4x4;
 import math.Vector3;
 import math.Vector4;
@@ -48,6 +50,25 @@ public class Shader
         uniforms.put(uniformName, uniformLocation);
     }
     
+    public void createPointLightUniform(String uniformName) throws Exception
+    {
+    	 createUniform(uniformName + ".colour");
+    	 createUniform(uniformName + ".position");
+    	 createUniform(uniformName + ".intensity");
+    	 createUniform(uniformName + ".att.constant");
+    	 createUniform(uniformName + ".att.linear");
+    	 createUniform(uniformName + ".att.exponent");
+    }
+    
+    public void createMaterialUniform(String uniformName) throws Exception
+    {
+    	createUniform(uniformName + ".ambient");
+        createUniform(uniformName + ".diffuse");
+        createUniform(uniformName + ".specular");
+        createUniform(uniformName + ".hasTexture");
+        createUniform(uniformName + ".reflectance");
+    }
+    
     public void setUniform(String uniformName, Matrix4x4 matrix) 
     {
         FloatBuffer fb = BufferUtils.createFloatBuffer(16);
@@ -61,11 +82,49 @@ public class Shader
         GL20.glUniform1i(uniforms.get(uniformName), value);
     }
     
+    public void setUniform(String uniformName, float value) 
+    {
+        GL20.glUniform1f(uniforms.get(uniformName), value);
+    }
+    
+    public void setUniform(String uniformName, Vector3 value) 
+    {
+    	GL20.glUniform3f(uniforms.get(uniformName), value.x, value.y, value.z);
+    }
+    
     public void setUniform(String uniformName, Vector4 value) 
     {
     	GL20.glUniform4f(uniforms.get(uniformName), value.x, value.y, value.z, value.w );
     }
-
+    
+    public void setUniform(String uniformName, Color value) 
+    {
+    	setUniform(uniformName, value.getColorVector());
+    }
+    
+    public void setUniform(String uniformName, Light light)
+    {
+    	if(light.lightType == LightType.PointLight)
+    	{
+    		 setUniform(uniformName + ".colour", light.color);
+    		 setUniform(uniformName + ".position", light.gameObject.transform.position);
+    		 setUniform(uniformName + ".intensity", light.intensity);
+    		 Light.Attenuation att = light.attenuation;
+    		 setUniform(uniformName + ".att.constant", att.constant);
+    		 setUniform(uniformName + ".att.linear", att.linear);
+    		 setUniform(uniformName + ".att.exponent", att.exponent);
+    	}
+    }
+    
+    public void setUniform(String uniformName, Material material)
+    {
+        setUniform(uniformName + ".ambient", material.ambientColor);
+        setUniform(uniformName + ".diffuse", material.diffuseColor);
+        setUniform(uniformName + ".specular", material.specularColor);
+        setUniform(uniformName + ".hasTexture", material.isTextured() ? 1 : 0);
+        setUniform(uniformName + ".reflectance", material.reflectance);
+    }
+    
     protected int createShader(String shaderCode, int shaderType) throws Exception 
     {
         int shaderId = GL20.glCreateShader(shaderType);

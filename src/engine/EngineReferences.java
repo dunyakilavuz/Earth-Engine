@@ -1,7 +1,9 @@
 package engine;
 
 import components.GameObject;
+import components.Light;
 import graphics.Color;
+import math.Vector3;
 
 public class EngineReferences 
 {
@@ -20,7 +22,7 @@ public class EngineReferences
 	/*Engine related properties start*/
 	public static Scene activeScene;
 	public static GameObject mainCamera;
-	public static Color clearColor = Color.grey;
+	public static Color clearColor = Color.black;
 	/*Engine related properties end*/
 	
 	
@@ -28,4 +30,10 @@ public class EngineReferences
 	public static float cameraSensitivity = 10f;
 	public static float cameraMoveSpeed = 0.1f;
 	/*Camera related properties end*/
+	
+	/*Light related properties start*/
+	public static boolean lightExists = false;
+	public static Vector3 ambientLight = new Vector3(0.3f,0.3f,0.3f);
+	/*Light related properties end*/
+	
 }

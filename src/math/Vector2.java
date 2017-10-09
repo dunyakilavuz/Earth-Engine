@@ -62,11 +62,6 @@ public class Vector2
 		System.out.println("(" + vector.x + "," + vector.y + "," + ")");
 	}
 
-	public void printElements()
-	{
-		System.out.println("(" + x + "," + y + "," + ")");
-	}
-	
 	public String toString()
 	{
 		return "(" + x + "," + y + "," + ")";

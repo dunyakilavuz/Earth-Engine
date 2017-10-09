@@ -20,8 +20,9 @@ public class Scene
 	public List<GameObject> gameObjectList = new ArrayList<GameObject>();
 	
 	GameObject mainCamera = EngineReferences.mainCamera;
-	Shader shader;
+	public Shader shader;
 	GameObject origin;
+	float specularPower = 10;
 	
 	
 	public Scene() 
@@ -38,9 +39,15 @@ public class Scene
 		shader.createUniform("projectionMatrix");
 		shader.createUniform("modelViewMatrix");
 		shader.createUniform("texture_sampler");
-		shader.createUniform("colour");
-		shader.createUniform("useColour");
+		shader.createUniform("emptyScene");
+		shader.createUniform("lightExists");
 		
+		shader.createUniform("specularPower");
+		shader.createUniform("ambientLight");
+		shader.createMaterialUniform("material");
+		shader.createPointLightUniform("pointLight");
+		
+
 		for(GameObject object : gameObjectList)
 		{
 			object.Awake();
@@ -62,37 +69,41 @@ public class Scene
 		shader.Bind();
 		shader.setUniform("projectionMatrix", mainCamera.GetComponent(Camera.class).projectionMatrix);
 		
-		drawGrid();
+		shader.setUniform("ambientLight", EngineReferences.ambientLight);
+        shader.setUniform("specularPower", specularPower);
+		
+        shader.setUniform("emptyScene", 1);
+        drawGrid();
 
-		for(int i = 0; i < gameObjectList.size(); i++)
+		if(gameObjectList.isEmpty() == false)
 		{
-			if(gameObjectList.get(i).GetComponent(MeshRenderer.class).material.texture != null)
-			{
-				shader.setUniform("texture_sampler", i);
-				GL13.glActiveTexture(GL13.GL_TEXTURE0 + i);
-				GL11.glBindTexture(GL11.GL_TEXTURE_2D, gameObjectList.get(i).GetComponent(MeshRenderer.class).material.texture.textureVboID);
-			}		
+			shader.setUniform("emptyScene", 0);
 			
-			shader.setUniform("modelViewMatrix", Matrix4x4.multiplicationMatrix4x4(Matrix4x4.Inverse(mainCamera.GetComponent(Camera.class).viewMatrix), gameObjectList.get(i).transform.worldMatrix));
-			shader.setUniform("colour", gameObjectList.get(i).GetComponent(MeshRenderer.class).material.color.getColorVector());
-			
-			if(gameObjectList.get(i).GetComponent(MeshRenderer.class).material.isTextured() == true)
+			if(EngineReferences.lightExists == true)
 			{
-				shader.setUniform("useColour", 0);				
+				shader.setUniform("lightExists", 1);
 			}
 			else
 			{
-				shader.setUniform("useColour", 1);				
+				shader.setUniform("lightExists", 0);
 			}
-			gameObjectList.get(i).Update();
+
+			for(int i = 0; i < gameObjectList.size(); i++)
+			{				
+				if(gameObjectList.get(i).GetComponent(MeshRenderer.class) != null && gameObjectList.get(i).GetComponent(MeshRenderer.class).material.isTextured() == true)
+				{
+					shader.setUniform("material", gameObjectList.get(i).GetComponent(MeshRenderer.class).material);					
+					shader.setUniform("texture_sampler", i);
+					GL13.glActiveTexture(GL13.GL_TEXTURE0 + i);
+					GL11.glBindTexture(GL11.GL_TEXTURE_2D, gameObjectList.get(i).GetComponent(MeshRenderer.class).material.getTexture().textureVboID);
+				}		
+				
+				shader.setUniform("modelViewMatrix", Matrix4x4.multiplicationMatrix4x4(Matrix4x4.Inverse(mainCamera.GetComponent(Camera.class).viewMatrix), gameObjectList.get(i).transform.worldMatrix));
+				gameObjectList.get(i).Update();		
+			}
 		}
-		
+
 		shader.setUniform("modelViewMatrix", Matrix4x4.multiplicationMatrix4x4(Matrix4x4.Inverse(mainCamera.GetComponent(Camera.class).viewMatrix), origin.transform.worldMatrix));
-		if(gameObjectList.isEmpty())
-		{
-			shader.setUniform("colour", Color.white.getColorVector());
-			shader.setUniform("useColour", 1);
-		}
 		mainCamera.GetComponent(Camera.class).controlCamera();			
 		shader.Unbind();			
 	}

@@ -9,6 +9,7 @@ public class Color
 	public static Color red = new Color(new Vector4(1,0,0,1));
 	public static Color green = new Color(new Vector4(0,1,0,1));
 	public static Color blue = new Color(new Vector4(0,0,1,1));
+	public static Color black = new Color(new Vector4(0,0,0,0));
 
 	Vector4 colorVector;
 	

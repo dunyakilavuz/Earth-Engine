@@ -15,4 +15,8 @@ public class Vector4
 		this.w = w;
 	}
 
+	public String toString()
+	{
+		return "(" + x + "," + y + "," + z + "," + w + ")";
+	}
 }

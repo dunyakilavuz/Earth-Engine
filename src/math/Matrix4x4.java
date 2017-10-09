@@ -127,6 +127,14 @@ public class Matrix4x4
 		matrix[row][3] = vector.w;
 	}
 	
+	public void Vector4ToColumn(int column, Vector4 vector)
+	{
+		matrix[0][column] = vector.x;
+		matrix[1][column] = vector.y;
+		matrix[2][column] = vector.z;
+		matrix[3][column] = vector.w;
+	}
+	
 	public Vector4 RowToVector4(int row)
 	{
 		return new Vector4(matrix[row][0],matrix[row][1],matrix[row][2],matrix[row][3]);

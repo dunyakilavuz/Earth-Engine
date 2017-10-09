@@ -11,4 +11,8 @@ public class Mathf
 	{
 		
 	}
+	
+	public static float Clamp(float min, float max,float value) {
+	    return Math.max(min, Math.min(max, value));
+	}
 }

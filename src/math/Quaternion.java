@@ -30,7 +30,7 @@ public class Quaternion
 	}
 	
 	public static Quaternion AngleAxis(float angle, Vector3 axis)
-	{		
+	{	
 		angle = (float) Math.toRadians(angle);
 		float w = (float) Math.cos(angle / 2);
 		float x = (float) (axis.x * Math.sin(angle / 2));
@@ -91,7 +91,7 @@ public class Quaternion
 		if(pole == 0)
 		{
 			x = (float) Math.toDegrees(Math.atan2(2f * (q.y * q.w + q.x * q.z), 1f - 2f * (q.y * q.y + q.x * q.x)));
-			y =  (float) Math.toDegrees(Math.asin(Clamp(2f * (q.w * q.x - q.z * q.y), -1f, 1f)));
+			y =  (float) Math.toDegrees(Math.asin(Mathf.Clamp(-1f, 1f,2f * (q.w * q.x - q.z * q.y))));
 			z = (float) Math.toDegrees(Math.atan2(2f * (q.w * q.z + q.y * q.x), 1f - 2f * (q.x * q.x + q.z * q.z)));			
 		}
 		else
@@ -106,13 +106,15 @@ public class Quaternion
 	
 	public static Quaternion EulerToQuaternion(Vector3 vector)
 	{
-		float hr = vector.z * 0.5f;
+		Vector3 rads = new Vector3((float)Math.toRadians(vector.x),(float)Math.toRadians(vector.y),(float)Math.toRadians(vector.z));
+		
+		float hr = rads.z * 0.5f;
 		float shr = (float)Math.sin(hr);
 		float chr = (float)Math.cos(hr);
-		float hp = vector.y * 0.5f;
+		float hp = rads.y * 0.5f;
 		float shp = (float)Math.sin(hp);
 		float chp = (float)Math.cos(hp);
-		float hy = vector.x * 0.5f;
+		float hy = rads.x * 0.5f;
 		float shy = (float)Math.sin(hy);
 		float chy = (float)Math.cos(hy);
 		float chy_shp = chy * shp;
@@ -144,9 +146,25 @@ public class Quaternion
 		Quaternion interpolated = new Quaternion((scale0 * start.w) + (scale1 * end.w), (scale0 * start.x) + (scale1 * end.x), (scale0 * start.y) + (scale1 * end.y), (scale0 * start.z) + (scale1 * end.z));
 		return interpolated;
 	}
-	
-	private static float Clamp(float val, float min, float max) {
-	    return Math.max(min, Math.min(max, val));
+
+	public static Quaternion Inverse(Quaternion q)
+	{
+		Quaternion newQuaternion;
+		
+		float squareOfElementSum = q.w * q.w + q.x * q.x + q.y * q.y + q.z * q.z;
+		
+        if (squareOfElementSum > 0.0)
+        {
+            float inverseSquareSum = 1.0f / squareOfElementSum;
+            newQuaternion = new Quaternion(
+            		-q.x * inverseSquareSum,
+            		-q.y * inverseSquareSum,
+            		-q.z * inverseSquareSum,
+            		 q.w * inverseSquareSum);
+            
+            return newQuaternion;
+        }
+        return null;
 	}
 	
 }

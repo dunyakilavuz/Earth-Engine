@@ -36,12 +36,10 @@ public class Transform extends Component
 	
 	public void RotateAround(Vector3 point, Vector3 axis, float angle)
 	{
-		Vector3 direction = Vector3.Normalize(Vector3.Subtraction(position, point));
-		float distance = Vector3.Magnitude(Vector3.Subtraction(position, point));
-		
-		direction = Vector3.MultiplyByQuaternion(Quaternion.AngleAxis(angle, Vector3.Negate(axis)),direction);
-
-		position = Vector3.Scale(direction, distance);
+		Quaternion rotate = Quaternion.AngleAxis(angle, Vector3.Negate(axis));
+		Vector3 direction = Vector3.Subtraction(position, point);
+		direction = Vector3.MultiplyByQuaternion(rotate, direction);
+		position = Vector3.Addition(point, direction);
 	}
 
 	public Vector3 right()

@@ -13,6 +13,7 @@ public class Vector3
 	public static Vector3 forward = new Vector3(0,0,1);
 	public static Vector3 back = new Vector3(0,0,-1);
 	public static Vector3 zero = new Vector3(0,0,0);
+	public static Vector3 one = new Vector3(1,1,1);
 	
 	public Vector3(float x, float y, float z)
 	{
@@ -98,11 +99,6 @@ public class Vector3
 	public static Vector3 Cross(Vector3 lhs, Vector3 rhs)
 	{
 		return new Vector3(lhs.y * rhs.z - lhs.z * rhs.y,lhs.z * rhs.x - lhs.x * rhs.z,lhs.x * rhs.y - lhs.y * rhs.x);
-	}
-
-	public void printElements()
-	{
-		System.out.println("(" + x + "," + y + "," + z + ")");
 	}
 	
 	public String toString()
