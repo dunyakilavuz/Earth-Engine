@@ -8,12 +8,13 @@ import org.lwjgl.opengl.GL13;
 
 import components.Camera;
 import components.GameObject;
+import components.Light;
 import components.MeshRenderer;
+import components.Light.LightType;
 import graphics.Color;
 import graphics.Shader;
 import math.Matrix4x4;
 import math.Vector3;
-import math.Vector4;
 
 public class Scene 
 {
@@ -23,8 +24,7 @@ public class Scene
 	public Shader shader;
 	GameObject origin;
 	float specularPower = 10;
-	
-	
+
 	public Scene() 
 	{
 		origin = new GameObject();
@@ -46,7 +46,6 @@ public class Scene
 		shader.createUniform("ambientLight");
 		shader.createMaterialUniform("material");
 		shader.createPointLightUniform("pointLight");
-		
 
 		for(GameObject object : gameObjectList)
 		{
@@ -71,6 +70,7 @@ public class Scene
 		
 		shader.setUniform("ambientLight", EngineReferences.ambientLight);
         shader.setUniform("specularPower", specularPower);
+        
 		
         shader.setUniform("emptyScene", 1);
         drawGrid();
@@ -92,10 +92,10 @@ public class Scene
 			{				
 				if(gameObjectList.get(i).GetComponent(MeshRenderer.class) != null && gameObjectList.get(i).GetComponent(MeshRenderer.class).material.isTextured() == true)
 				{
-					shader.setUniform("material", gameObjectList.get(i).GetComponent(MeshRenderer.class).material);					
 					shader.setUniform("texture_sampler", i);
 					GL13.glActiveTexture(GL13.GL_TEXTURE0 + i);
 					GL11.glBindTexture(GL11.GL_TEXTURE_2D, gameObjectList.get(i).GetComponent(MeshRenderer.class).material.getTexture().textureVboID);
+					shader.setUniform("material", gameObjectList.get(i).GetComponent(MeshRenderer.class).material);					
 				}		
 				
 				shader.setUniform("modelViewMatrix", Matrix4x4.multiplicationMatrix4x4(Matrix4x4.Inverse(mainCamera.GetComponent(Camera.class).viewMatrix), gameObjectList.get(i).transform.worldMatrix));

@@ -39,7 +39,7 @@ public abstract class Component
 				return type.cast(componentList.get(i));
 			}
 		}
-		System.out.println("No such component is attached.");
+//		System.out.println("No such component is attached.");
 		return null;
 	}
 }

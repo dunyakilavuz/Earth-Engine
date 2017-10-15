@@ -47,7 +47,7 @@ public class Test
 		
 		GameObject light = new GameObject();
 		light.name = "PointLight";
-		light.transform.position = new Vector3(1.5f,0,0);
+		light.transform.position = new Vector3(0,0,-1);
 		light.AddComponent(new Light(light,LightType.PointLight,Color.white,1,1));
 		
 		
@@ -66,9 +66,9 @@ public class Test
 		moon.transform.scale = new Vector3(0.3f,0.3f,0.3f);
 		moon.AddComponent(new RotateAround(moon));
 
+		scene.gameObjectList.add(light);
 		scene.gameObjectList.add(earth);
 		scene.gameObjectList.add(moon);
-		scene.gameObjectList.add(light);
 		
 		engine.StartEngine();
 	}

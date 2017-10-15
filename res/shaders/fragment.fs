@@ -3,8 +3,8 @@
 in vec2 outTexCoord;
 in vec3 mvVertexNormal;
 in vec3 mvVertexPos;
-out vec4 fragColor;
 
+out vec4 fragColor;
 
 struct Attenuation
 {
@@ -35,6 +35,7 @@ uniform vec3 ambientLight;
 uniform float specularPower;
 uniform Material material;
 uniform PointLight pointLight;
+
 uniform int emptyScene;
 uniform int lightExists;
 

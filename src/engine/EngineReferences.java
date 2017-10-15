@@ -34,6 +34,7 @@ public class EngineReferences
 	/*Light related properties start*/
 	public static boolean lightExists = false;
 	public static Vector3 ambientLight = new Vector3(0.3f,0.3f,0.3f);
+//	public static Light light;
 	/*Light related properties end*/
 	
 }

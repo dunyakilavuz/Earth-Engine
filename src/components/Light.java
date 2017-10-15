@@ -36,12 +36,12 @@ public class Light extends Component
 
 	public void Start()
 	{
-		EngineReferences.activeScene.shader.setUniform("pointLight", this);
+		SetUniform();
 	}
 	
 	public void Update()
 	{
-		EngineReferences.activeScene.shader.setUniform("pointLight", this);
+		SetUniform();
 	}
 	
 	public enum LightType
@@ -63,5 +63,10 @@ public class Light extends Component
             this.linear = linear;
             this.exponent = exponent;
 		}
+	}
+	
+	public void SetUniform()
+	{
+		EngineReferences.activeScene.shader.setUniform("pointLight", this);
 	}
 }
