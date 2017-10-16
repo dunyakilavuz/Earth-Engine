@@ -2,6 +2,8 @@ package components;
 
 import engine.EngineReferences;
 import graphics.Color;
+import math.Vector3;
+import math.Vector4;
 
 public class Light extends Component
 {
@@ -11,6 +13,7 @@ public class Light extends Component
 	public LightType lightType;
 	public Attenuation attenuation;
 	public float radius;
+	public Vector3 relativePosition;
 	
 	public Light(GameObject parent, LightType lightType, Color color, float intensity,float radius)
 	{
@@ -33,14 +36,37 @@ public class Light extends Component
 		attenuation = new Attenuation(1, 2.0f/radius, 1.0f/(radius * radius));
 		EngineReferences.lightExists = true;
 	}
+	
+	public Light(GameObject parent, LightType lightType, Color color)
+	{
+		gameObject= parent;
+		this.lightType = lightType;
+		this.color = color;
+		this.intensity = 1;
+		this.radius = 1;
+		attenuation = new Attenuation(1, 2.0f/radius, 1.0f/(radius * radius));
+		EngineReferences.lightExists = true;
+	}
+	
+	public Light(GameObject parent, LightType lightType)
+	{
+		gameObject= parent;
+		this.lightType = lightType;
+		this.color = Color.white;
+		this.intensity = 1;
+		this.radius = 1;
+		attenuation = new Attenuation(1, 2.0f/radius, 1.0f/(radius * radius));
+		EngineReferences.lightExists = true;
+	}
 
 	public void Start()
 	{
-		SetUniform();
+		
 	}
 	
 	public void Update()
 	{
+		calcRelativePosition();
 		SetUniform();
 	}
 	
@@ -63,6 +89,12 @@ public class Light extends Component
             this.linear = linear;
             this.exponent = exponent;
 		}
+	}
+	
+	void calcRelativePosition()
+	{
+		Vector4 Vec4RelativePosition = Vector4.ToVector4(gameObject.transform.position, 1);
+		relativePosition = Vector3.ToVector3(Vector4.MultiplyByMatrix4x4(Vec4RelativePosition, EngineReferences.mainCamera.GetComponent(Camera.class).viewMatrix));
 	}
 	
 	public void SetUniform()

@@ -101,6 +101,11 @@ public class Vector3
 		return new Vector3(lhs.y * rhs.z - lhs.z * rhs.y,lhs.z * rhs.x - lhs.x * rhs.z,lhs.x * rhs.y - lhs.y * rhs.x);
 	}
 	
+	public static Vector3 ToVector3(Vector4 vector4)
+	{
+		return new Vector3(vector4.x,vector4.y,vector4.z);
+	}
+	
 	public String toString()
 	{
 		return "(" + x + "," + y + "," + z + ")";

@@ -58,7 +58,6 @@ public class Engine
 				, EngineReferences.clearColor.getColorVector().w);
 		GL11.glEnable(GL11.GL_DEPTH_TEST);
 
-		
 	}
 
 	void Awake() throws Exception

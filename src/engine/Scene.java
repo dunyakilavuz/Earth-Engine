@@ -71,7 +71,6 @@ public class Scene
 		shader.setUniform("ambientLight", EngineReferences.ambientLight);
         shader.setUniform("specularPower", specularPower);
         
-		
         shader.setUniform("emptyScene", 1);
         drawGrid();
 
@@ -90,14 +89,17 @@ public class Scene
 
 			for(int i = 0; i < gameObjectList.size(); i++)
 			{				
-				if(gameObjectList.get(i).GetComponent(MeshRenderer.class) != null && gameObjectList.get(i).GetComponent(MeshRenderer.class).material.isTextured() == true)
+				if(gameObjectList.get(i).GetComponent(MeshRenderer.class) != null)
 				{
-					shader.setUniform("texture_sampler", i);
-					GL13.glActiveTexture(GL13.GL_TEXTURE0 + i);
-					GL11.glBindTexture(GL11.GL_TEXTURE_2D, gameObjectList.get(i).GetComponent(MeshRenderer.class).material.getTexture().textureVboID);
-					shader.setUniform("material", gameObjectList.get(i).GetComponent(MeshRenderer.class).material);					
+					shader.setUniform("material", gameObjectList.get(i).GetComponent(MeshRenderer.class).material);	
+					
+					if(gameObjectList.get(i).GetComponent(MeshRenderer.class).material.isTextured() == true)
+					{
+						shader.setUniform("texture_sampler", i);
+						GL13.glActiveTexture(GL13.GL_TEXTURE0 + i);
+						GL11.glBindTexture(GL11.GL_TEXTURE_2D, gameObjectList.get(i).GetComponent(MeshRenderer.class).material.getTexture().textureVboID);
+					}
 				}		
-				
 				shader.setUniform("modelViewMatrix", Matrix4x4.multiplicationMatrix4x4(Matrix4x4.Inverse(mainCamera.GetComponent(Camera.class).viewMatrix), gameObjectList.get(i).transform.worldMatrix));
 				gameObjectList.get(i).Update();		
 			}

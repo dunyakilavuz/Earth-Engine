@@ -39,7 +39,7 @@ public class Test
 
 		MeshData earthMeshData = Loader.ImportOBJ(EngineReferences.enginePath + "/res/model/mesh/Earth.obj");
 		Mesh earthMesh = new Mesh(earthMeshData);
-		Material earthMaterial = new Material(new Texture(EngineReferences.enginePath + "/res/model/texture/earthTexture.png"));
+		Material earthMaterial = new Material();
 		
 		MeshData moonMeshData = Loader.ImportOBJ(EngineReferences.enginePath + "/res/model/mesh/Moon.obj");
 		Mesh moonMesh = new Mesh(moonMeshData);
@@ -47,9 +47,8 @@ public class Test
 		
 		GameObject light = new GameObject();
 		light.name = "PointLight";
-		light.transform.position = new Vector3(0,0,-1);
-		light.AddComponent(new Light(light,LightType.PointLight,Color.white,1,1));
-		
+		light.transform.position = new Vector3(2,0,0);
+		light.AddComponent(new Light(light,LightType.PointLight,Color.white,1,5));
 		
 		GameObject earth = new GameObject();
 		earth.name = "Earth";
@@ -62,7 +61,7 @@ public class Test
 		moon.name = "Moon";
 		moon.AddComponent(new MeshRenderer(moonMesh));
 		moon.GetComponent(MeshRenderer.class).material = moonMaterial;
-		moon.transform.position = new Vector3(5,0,0);
+		moon.transform.position = new Vector3(3,0,0);
 		moon.transform.scale = new Vector3(0.3f,0.3f,0.3f);
 		moon.AddComponent(new RotateAround(moon));
 

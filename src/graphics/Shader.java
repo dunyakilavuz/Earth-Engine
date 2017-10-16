@@ -94,7 +94,7 @@ public class Shader
     
     public void setUniform(String uniformName, Vector4 value) 
     {
-    	GL20.glUniform4f(uniforms.get(uniformName), value.x, value.y, value.z, value.w );
+    	GL20.glUniform4f(uniforms.get(uniformName), value.x, value.y, value.z, value.w);
     }
     
     public void setUniform(String uniformName, Color value) 
@@ -107,7 +107,7 @@ public class Shader
     	if(light.lightType == LightType.PointLight)
     	{
     		 setUniform(uniformName + ".colour", light.color);
-    		 setUniform(uniformName + ".position", light.gameObject.transform.position);
+    		 setUniform(uniformName + ".position", light.relativePosition);
     		 setUniform(uniformName + ".intensity", light.intensity);
     		 Light.Attenuation att = light.attenuation;
     		 setUniform(uniformName + ".att.constant", att.constant);

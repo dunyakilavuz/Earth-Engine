@@ -14,7 +14,7 @@ public class Material
 		diffuseColor = Color.white;
 		specularColor = Color.white;
 		texture = null;
-		this.reflectance = 0;
+		this.reflectance = 0.5f;
 	}
 	
 	public Material(Color color, float reflectance) 
@@ -32,7 +32,7 @@ public class Material
 		diffuseColor = Color.white;
 		specularColor = Color.white;
 		this.texture = texture;
-		this.reflectance = 0;
+		this.reflectance = 0.5f;
 	}
 	
 	public Material(Texture texture, float reflectance)

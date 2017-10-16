@@ -15,7 +15,7 @@ struct Attenuation
 
 struct PointLight
 {
-	vec3 colour;
+	vec4 colour;
 	vec3 position;
 	float intensity;
 	Attenuation att;
@@ -64,12 +64,11 @@ vec4 calcPointLight(PointLight light, vec3 position, vec3 normal)
 	vec4 diffuseColour = vec4(0,0,0,0);
 	vec4 specColour = vec4(0,0,0,0);
 	
-	
 	//Diffuse Light
 	vec3 light_direction = light.position - position;
 	vec3 to_light_source = normalize(light_direction);
 	float diffuseFactor = max(dot(normal, to_light_source), 0.0);
-	diffuseColour = diffuseC * vec4(light.colour, 1.0) * light.intensity * diffuseFactor;
+	diffuseColour = diffuseC * light.colour * light.intensity * diffuseFactor;
 	
 	//Specular Light
 	vec3 camera_direction = normalize(-position);
@@ -77,7 +76,7 @@ vec4 calcPointLight(PointLight light, vec3 position, vec3 normal)
 	vec3 reflected_light = normalize(reflect(from_light_source, normal));
 	float specularFactor = max(dot(camera_direction, reflected_light),0.0);
 	specularFactor = pow(specularFactor, specularPower);
-	specColour = specularC * specularFactor * material.reflectance * vec4(light.colour, 1.0);
+	specColour = specularC * specularFactor * material.reflectance * light.colour;
 	
 	//Attenuation
 	float distance = length(light_direction);
@@ -100,8 +99,16 @@ void main()
 	{
 		setupColours(material, outTexCoord);
 		vec4 diffuseSpecularComp = calcPointLight(pointLight, mvVertexPos, mvVertexNormal);
-		fragColor = ambientC * vec4(ambientLight, 1) + diffuseSpecularComp;
+		
+		if(pointLight.colour.x == 0)
+		{
+			fragColor = vec4(1,0,0,0);
+		}
+		else
+		{
+			fragColor = ambientC * vec4(ambientLight, 1) + diffuseSpecularComp;
+		}
+
+		
 	}
-
-
 }
