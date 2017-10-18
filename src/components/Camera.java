@@ -33,7 +33,7 @@ public class Camera extends Component
 		farClipPlane = 1000f;
 		nearClipPlane = 0.1f;
 		projectionMatrix = Matrix4x4.projectionMatrix(this);
-		viewMatrix = Matrix4x4.viewMatrix(this);
+		viewMatrix = Matrix4x4.viewMatrix(this.gameObject);
 	}
 	
 	public void Start()
@@ -44,7 +44,7 @@ public class Camera extends Component
 	public void Update()
 	{
 		gameObject.transform.Update();
-		viewMatrix = Matrix4x4.viewMatrix(this);
+		viewMatrix = Matrix4x4.viewMatrix(this.gameObject);
 	}
 	
 	public void controlCamera()

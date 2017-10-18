@@ -22,6 +22,13 @@ public class Vector3
 		this.z = z;
 	}
 	
+	public Vector3(Vector4 vector)
+	{
+		this.x = vector.x;
+		this.y = vector.y;
+		this.z = vector.z;
+	}
+	
 	public static Vector3 Negate(Vector3 vector)
 	{
 		return new Vector3(-vector.x,-vector.y,-vector.z);
@@ -99,11 +106,6 @@ public class Vector3
 	public static Vector3 Cross(Vector3 lhs, Vector3 rhs)
 	{
 		return new Vector3(lhs.y * rhs.z - lhs.z * rhs.y,lhs.z * rhs.x - lhs.x * rhs.z,lhs.x * rhs.y - lhs.y * rhs.x);
-	}
-	
-	public static Vector3 ToVector3(Vector4 vector4)
-	{
-		return new Vector3(vector4.x,vector4.y,vector4.z);
 	}
 	
 	public String toString()

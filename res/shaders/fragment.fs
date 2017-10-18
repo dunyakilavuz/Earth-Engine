@@ -99,16 +99,7 @@ void main()
 	{
 		setupColours(material, outTexCoord);
 		vec4 diffuseSpecularComp = calcPointLight(pointLight, mvVertexPos, mvVertexNormal);
-		
-		if(pointLight.colour.x == 0)
-		{
-			fragColor = vec4(1,0,0,0);
-		}
-		else
-		{
-			fragColor = ambientC * vec4(ambientLight, 1) + diffuseSpecularComp;
-		}
-
+		fragColor = ambientC * vec4(ambientLight, 1) + diffuseSpecularComp;
 		
 	}
 }

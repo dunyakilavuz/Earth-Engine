@@ -33,6 +33,7 @@ public class Scene
 	void Awake() throws Exception
 	{
 		shader = new Shader();
+		EngineReferences.shader = shader;
 		shader.createVertexShader(Loader.ImportCode(EngineReferences.enginePath + "/res/shaders/vertex.vs"));
 		shader.createFragmentShader(Loader.ImportCode(EngineReferences.enginePath + "/res/shaders/fragment.fs"));
 		shader.Link();
@@ -72,7 +73,7 @@ public class Scene
         shader.setUniform("specularPower", specularPower);
         
         shader.setUniform("emptyScene", 1);
-        drawGrid();
+//        drawGrid();
 
 		if(gameObjectList.isEmpty() == false)
 		{

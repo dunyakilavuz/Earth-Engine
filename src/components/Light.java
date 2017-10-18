@@ -1,7 +1,10 @@
 package components;
 
+import com.sun.org.apache.xml.internal.security.encryption.Reference;
+
 import engine.EngineReferences;
 import graphics.Color;
+import math.Matrix4x4;
 import math.Vector3;
 import math.Vector4;
 
@@ -66,7 +69,7 @@ public class Light extends Component
 	
 	public void Update()
 	{
-		calcRelativePosition();
+		CalcRelativePosition();
 		SetUniform();
 	}
 	
@@ -85,16 +88,18 @@ public class Light extends Component
 		
 		public Attenuation(float constant, float linear, float exponent)
 		{
-			this.constant = constant;
-            this.linear = linear;
-            this.exponent = exponent;
+			this.constant = 1;
+            this.linear = 0;
+            this.exponent = 0;
 		}
 	}
-	
-	void calcRelativePosition()
+
+	void CalcRelativePosition()
 	{
-		Vector4 Vec4RelativePosition = Vector4.ToVector4(gameObject.transform.position, 1);
-		relativePosition = Vector3.ToVector3(Vector4.MultiplyByMatrix4x4(Vec4RelativePosition, EngineReferences.mainCamera.GetComponent(Camera.class).viewMatrix));
+		Matrix4x4 temp = Matrix4x4.Inverse(Matrix4x4.multiplicationMatrix4x4(Matrix4x4.Inverse(EngineReferences.mainCamera.GetComponent(Camera.class).viewMatrix), gameObject.transform.worldMatrix));
+		Vector4 aux = new Vector4(gameObject.transform.position,1);
+		aux = Vector4.MultiplyByMatrix4x4(aux, temp);
+		relativePosition = new Vector3(aux);
 	}
 	
 	public void SetUniform()

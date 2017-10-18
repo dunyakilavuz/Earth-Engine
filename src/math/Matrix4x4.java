@@ -3,6 +3,7 @@ package math;
 import java.util.Random;
 
 import components.Camera;
+import components.GameObject;
 
 public class Matrix4x4 
 {
@@ -44,10 +45,10 @@ public class Matrix4x4
 		return newMatrix;
 	}
 	
-	public static Matrix4x4 viewMatrix(Camera camera)
+	public static Matrix4x4 viewMatrix(GameObject object)
 	{
 		Matrix4x4 newMatrix;
-		newMatrix = Matrix4x4.multiplicationMatrix4x4(Matrix4x4.translationMatrix(camera.gameObject.transform.position),Matrix4x4.rotationMatrix(camera.gameObject.transform.rotation));
+		newMatrix = Matrix4x4.multiplicationMatrix4x4(Matrix4x4.translationMatrix(object.transform.position),Matrix4x4.rotationMatrix(object.transform.rotation));
 		return newMatrix;
 	}
 	
